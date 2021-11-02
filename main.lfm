@@ -8,13 +8,13 @@ object MainForm: TMainForm
   ClientWidth = 806
   OnCreate = FormCreate
   LCLVersion = '2.0.12.0'
-  object Button1: TButton
+  object OpenButton: TButton
     Left = 680
     Height = 25
     Top = 328
     Width = 75
-    Caption = 'Load'
-    OnClick = Button1Click
+    Caption = 'Open'
+    OnClick = OpenButtonClick
     TabOrder = 0
   end
   object PageControl1: TPageControl
