@@ -17,20 +17,20 @@ object MainForm: TMainForm
     OnClick = OpenButtonClick
     TabOrder = 0
   end
-  object PageControl1: TPageControl
+  object PageControl: TPageControl
     Left = 0
     Height = 320
     Top = 0
     Width = 806
-    ActivePage = TabSheet2
+    ActivePage = DebugSheet
     Align = alTop
     TabIndex = 1
     TabOrder = 1
-    object TabSheet1: TTabSheet
+    object ViewSheet: TTabSheet
       Caption = 'DexView'
       ClientHeight = 292
       ClientWidth = 798
-      object ShellListView1: TShellListView
+      object DexListView: TListView
         Left = 0
         Height = 292
         Top = 0
@@ -41,11 +41,11 @@ object MainForm: TMainForm
         ObjectTypes = [otNonFolders]
       end
     end
-    object TabSheet2: TTabSheet
+    object DebugSheet: TTabSheet
       Caption = 'Debug'
       ClientHeight = 292
       ClientWidth = 798
-      object Memo1: TMemo
+      object Memo: TMemo
         Left = 0
         Height = 292
         Top = 0
