@@ -10,9 +10,9 @@ uses
 
 type
 
-  { TForm1 }
+  { TMainForm }
 
-  TForm1 = class(TForm)
+  TMainForm = class(TForm)
     Button1: TButton;
     Memo1: TMemo;
     DexOpenDialog: TOpenDialog;
@@ -29,21 +29,21 @@ type
   end;
 
 var
-  Form1: TForm1;
+  MainForm: TMainForm;
   buf: TBufferedFileStream;
 
 implementation
 
 {$R *.lfm}
 
-{ TForm1 }
+{ TMainForm }
 
-procedure TForm1.Button1Click(Sender: TObject);
+procedure TMainForm.Button1Click(Sender: TObject);
 begin
   if DexOpenDialog.Execute then
   begin
     Clear;
-    Form1.Text := DexOpenDialog.FileName;
+    MainForm.Text := DexOpenDialog.FileName;
     buf := TBufferedFileStream.Create(DexOpenDialog.FileName, fmOpenRead);
     Memo1.Lines.Add('magic: ' + ReadMagic(buf));
     Memo1.Lines.Add('checksum: ' + IntToHex(ReadUint(buf), 8));
@@ -82,13 +82,13 @@ end;
 
 
 
-procedure TForm1.Clear();
+procedure TMainForm.Clear();
 begin
   FreeAndNil(buf);
   Memo1.Clear;
 end;
 
-procedure TForm1.FormCreate(Sender: TObject);
+procedure TMainForm.FormCreate(Sender: TObject);
 begin
   Memo1.Clear;
 end;
