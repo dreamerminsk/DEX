@@ -58,7 +58,7 @@ object Form1: TForm1
       end
     end
   end
-  object OpenDialog1: TOpenDialog
+  object DexOpenDialog: TOpenDialog
     DefaultExt = '.dex'
     Filter = '*.dex'
     Left = 688
