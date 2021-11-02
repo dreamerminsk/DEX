@@ -16,6 +16,12 @@ type
     destructor Destroy; override;
   end;
 
+TDexFile = class(TObject)
+  public
+    constructor Create;
+    destructor Destroy; override;
+  end;
+
 
 function ReadMagic(S: TStream): string;
 function ReadUint(S: TStream): integer;
@@ -30,6 +36,16 @@ begin
 end;
 
 destructor THeaderItem.Destroy;
+begin
+  inherited Destroy;
+end;
+
+constructor TDexFile.Create();
+begin
+  inherited Create();
+end;
+
+destructor TDexFile.Destroy;
 begin
   inherited Destroy;
 end;
