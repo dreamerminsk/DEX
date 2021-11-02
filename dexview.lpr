@@ -7,8 +7,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   Interfaces, // this includes the LCL widgetset
   Forms,
   lazcontrols,
-  Main,
-  dex { you can add units after this };
+  Main { you can add units after this };
 
 {$R *.res}
 
