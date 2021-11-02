@@ -1,0 +1,67 @@
+object MainForm: TMainForm
+  Left = 289
+  Height = 465
+  Top = 199
+  Width = 806
+  Caption = 'DexViewer'
+  ClientHeight = 465
+  ClientWidth = 806
+  OnCreate = FormCreate
+  LCLVersion = '2.0.12.0'
+  object Button1: TButton
+    Left = 680
+    Height = 25
+    Top = 328
+    Width = 75
+    Caption = 'Load'
+    OnClick = Button1Click
+    TabOrder = 0
+  end
+  object PageControl1: TPageControl
+    Left = 0
+    Height = 320
+    Top = 0
+    Width = 806
+    ActivePage = TabSheet2
+    Align = alTop
+    TabIndex = 1
+    TabOrder = 1
+    object TabSheet1: TTabSheet
+      Caption = 'DexView'
+      ClientHeight = 292
+      ClientWidth = 798
+      object ShellListView1: TShellListView
+        Left = 0
+        Height = 292
+        Top = 0
+        Width = 798
+        Align = alClient
+        Color = clDefault
+        TabOrder = 0
+        ObjectTypes = [otNonFolders]
+      end
+    end
+    object TabSheet2: TTabSheet
+      Caption = 'Debug'
+      ClientHeight = 292
+      ClientWidth = 798
+      object Memo1: TMemo
+        Left = 0
+        Height = 292
+        Top = 0
+        Width = 798
+        Align = alClient
+        Lines.Strings = (
+          ''
+        )
+        TabOrder = 0
+      end
+    end
+  end
+  object DexOpenDialog: TOpenDialog
+    DefaultExt = '.dex'
+    Filter = '*.dex'
+    Left = 688
+    Top = 392
+  end
+end
