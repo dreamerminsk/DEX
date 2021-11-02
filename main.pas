@@ -13,14 +13,14 @@ type
   { TMainForm }
 
   TMainForm = class(TForm)
-    Button1: TButton;
+    OpenButton: TButton;
     Memo1: TMemo;
     DexOpenDialog: TOpenDialog;
     PageControl1: TPageControl;
     ShellListView1: TShellListView;
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
-    procedure Button1Click(Sender: TObject);
+    procedure OpenButtonClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
     procedure Clear();
@@ -38,7 +38,7 @@ implementation
 
 { TMainForm }
 
-procedure TMainForm.Button1Click(Sender: TObject);
+procedure TMainForm.OpenButtonClick(Sender: TObject);
 begin
   if DexOpenDialog.Execute then
   begin
