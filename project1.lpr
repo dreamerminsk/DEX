@@ -7,7 +7,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   Interfaces, // this includes the LCL widgetset
   Forms,
   lazcontrols,
-  Unit1,
+  Main,
   dex { you can add units after this };
 
 {$R *.res}
@@ -16,6 +16,6 @@ begin
   RequireDerivedFormResource := True;
   Application.Scaled := True;
   Application.Initialize;
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TMainForm, MainForm);
   Application.Run;
 end.
