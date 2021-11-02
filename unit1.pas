@@ -15,7 +15,7 @@ type
   TForm1 = class(TForm)
     Button1: TButton;
     Memo1: TMemo;
-    OpenDialog1: TOpenDialog;
+    DexOpenDialog: TOpenDialog;
     PageControl1: TPageControl;
     ShellListView1: TShellListView;
     TabSheet1: TTabSheet;
@@ -40,11 +40,11 @@ implementation
 
 procedure TForm1.Button1Click(Sender: TObject);
 begin
-  if OpenDialog1.Execute then
+  if DexOpenDialog.Execute then
   begin
     Clear;
-    Form1.Text := OpenDialog1.FileName;
-    buf := TBufferedFileStream.Create(OpenDialog1.FileName, fmOpenRead);
+    Form1.Text := DexOpenDialog.FileName;
+    buf := TBufferedFileStream.Create(DexOpenDialog.FileName, fmOpenRead);
     Memo1.Lines.Add('magic: ' + ReadMagic(buf));
     Memo1.Lines.Add('checksum: ' + IntToHex(ReadUint(buf), 8));
     Memo1.Lines.Add('signature: ' + ReadBytes(buf, 20));
