@@ -116,7 +116,8 @@ begin
   Result := '';
   repeat
     b := S.ReadByte;
-    Result += Chr(b);
+    if b > 0 then
+      Result += Chr(b);
   until b = 0;
 end;
 

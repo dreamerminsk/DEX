@@ -22,9 +22,9 @@ object MainForm: TMainForm
     Height = 320
     Top = 0
     Width = 806
-    ActivePage = ViewSheet
+    ActivePage = DebugSheet
     Align = alTop
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     object ViewSheet: TTabSheet
       Caption = 'DexView'
@@ -57,6 +57,8 @@ object MainForm: TMainForm
         Lines.Strings = (
           ''
         )
+        ReadOnly = True
+        ScrollBars = ssAutoBoth
         TabOrder = 0
       end
     end

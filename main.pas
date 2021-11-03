@@ -94,7 +94,7 @@ begin
     begin
       buf.seek(StringIds[i - 1], TSeekOrigin.soBeginning);
       Memo.Lines.Add('string_data_item[' + IntToStr(i - 1) + ']: ' +
-        IntToStr(ReadULEB128(buf)));
+        IntToStr(ReadULEB128(buf)) + ', "' + ReadMUTF8(buf) + '"');
     end;
   end;
 end;
