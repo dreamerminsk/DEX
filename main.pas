@@ -13,11 +13,11 @@ type
   { TMainForm }
 
   TMainForm = class(TForm)
+    DexListView: TListView;
     OpenButton: TButton;
     Memo: TMemo;
     DexOpenDialog: TOpenDialog;
     PageControl: TPageControl;
-    DexListView: TListView;
     ViewSheet: TTabSheet;
     DebugSheet: TTabSheet;
     procedure OpenButtonClick(Sender: TObject);
@@ -39,6 +39,9 @@ implementation
 { TMainForm }
 
 procedure TMainForm.OpenButtonClick(Sender: TObject);
+var
+  i: int64;
+  StringIdsSize, StringIdsOff: int64;
 begin
   if DexOpenDialog.Execute then
   begin
@@ -57,8 +60,10 @@ begin
 
     Memo.Lines.Add('map_off: ' + IntToStr(ReadUint(buf)));
 
-    Memo.Lines.Add('string_ids_size: ' + IntToStr(ReadUint(buf)));
-    Memo.Lines.Add('string_ids_off: ' + IntToStr(ReadUint(buf)));
+    StringIdsSize := ReadUint(buf);
+    Memo.Lines.Add('string_ids_size: ' + IntToStr(StringIdsSize));
+    StringIdsOff := ReadUint(buf);
+    Memo.Lines.Add('string_ids_off: ' + IntToStr(StringIdsOff));
 
     Memo.Lines.Add('type_ids_size: ' + IntToStr(ReadUint(buf)));
     Memo.Lines.Add('type_ids_off: ' + IntToStr(ReadUint(buf)));
@@ -77,6 +82,12 @@ begin
 
     Memo.Lines.Add('data_size: ' + IntToStr(ReadUint(buf)));
     Memo.Lines.Add('data_off: ' + IntToStr(ReadUint(buf)));
+
+    buf.seek(StringIdsOff, TSeekOrigin.soBeginning);
+    for i := 1 to StringIdsSize do
+    begin
+      Memo.Lines.Add('string_data_off[' + IntToStr(i) + ']: ' + IntToStr(ReadUint(buf)));
+    end;
   end;
 end;
 

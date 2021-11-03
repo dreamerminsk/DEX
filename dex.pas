@@ -16,7 +16,7 @@ type
     destructor Destroy; override;
   end;
 
-TDexFile = class(TObject)
+  TDexFile = class(TObject)
   public
     constructor Create;
     destructor Destroy; override;
@@ -89,5 +89,24 @@ begin
     end;
   end;
 end;
+
+function ReadULEB128(S: TStream): UInt64;
+var
+  I, lShift: integer;
+  lByte: byte;
+begin
+  Result := 0;
+  lShift := 0;
+  for I := 0 to 7 do
+  begin
+    lByte := S.ReadByte;
+    Result := Result or (UInt64(lByte and $7F) shl lShift);
+    if (lByte and $80) = 0 then
+      Break;
+    Inc(lShift, 7);
+  end;
+end;
+
+
 
 end.

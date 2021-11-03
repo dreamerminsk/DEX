@@ -1,7 +1,7 @@
 object MainForm: TMainForm
-  Left = 289
+  Left = 290
   Height = 465
-  Top = 199
+  Top = 167
   Width = 806
   Caption = 'DexViewer'
   ClientHeight = 465
@@ -22,9 +22,9 @@ object MainForm: TMainForm
     Height = 320
     Top = 0
     Width = 806
-    ActivePage = DebugSheet
+    ActivePage = ViewSheet
     Align = alTop
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 1
     object ViewSheet: TTabSheet
       Caption = 'DexView'
@@ -36,9 +36,12 @@ object MainForm: TMainForm
         Top = 0
         Width = 798
         Align = alClient
-        Color = clDefault
+        Columns = <>
+        ParentShowHint = False
+        ReadOnly = True
+        RowSelect = True
+        ShowHint = True
         TabOrder = 0
-        ObjectTypes = [otNonFolders]
       end
     end
     object DebugSheet: TTabSheet
