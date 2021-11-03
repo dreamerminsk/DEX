@@ -26,6 +26,8 @@ type
 function ReadMagic(S: TStream): string;
 function ReadUint(S: TStream): integer;
 function ReadBytes(S: TStream; Size: integer): string;
+function ReadULEB128(S: TStream): UInt64;
+function ReadMUTF8(S: TStream): string;
 
 implementation
 
@@ -107,6 +109,16 @@ begin
   end;
 end;
 
+function ReadMUTF8(S: TStream): string;
+var
+  b: byte;
+begin
+  Result := '';
+  repeat
+    b := S.ReadByte;
+    Result += Chr(b);
+  until b = 0;
+end;
 
 
 end.

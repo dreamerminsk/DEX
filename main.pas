@@ -42,6 +42,7 @@ procedure TMainForm.OpenButtonClick(Sender: TObject);
 var
   i: int64;
   StringIdsSize, StringIdsOff: int64;
+  StringIds: array of int64;
 begin
   if DexOpenDialog.Execute then
   begin
@@ -84,9 +85,16 @@ begin
     Memo.Lines.Add('data_off: ' + IntToStr(ReadUint(buf)));
 
     buf.seek(StringIdsOff, TSeekOrigin.soBeginning);
+    SetLength(StringIds, StringIdsSize);
     for i := 1 to StringIdsSize do
     begin
-      Memo.Lines.Add('string_data_off[' + IntToStr(i) + ']: ' + IntToStr(ReadUint(buf)));
+      StringIds[i - 1] := ReadUint(buf);
+    end;
+    for i := 1 to StringIdsSize do
+    begin
+      buf.seek(StringIds[i - 1], TSeekOrigin.soBeginning);
+      Memo.Lines.Add('string_data_item[' + IntToStr(i - 1) + ']: ' +
+        IntToStr(ReadULEB128(buf)));
     end;
   end;
 end;
