@@ -8,15 +8,24 @@ uses
   Classes, SysUtils;
 
 type
-  THeaderItem = class(TObject)
+  TDexItem = class(TObject)
+  private
+    FParent: TDexItem;
+  public
+    constructor Create;
+    destructor Destroy; override;
+    property Parent: TDexItem read FParent;
+  end;
+
+  THeaderItem = class(TDexItem)
   private
   protected
   public
-    constructor Create();
+    constructor Create;
     destructor Destroy; override;
   end;
 
-  TDexFile = class(TObject)
+  TDexFile = class(TDexItem)
   public
     constructor Create;
     destructor Destroy; override;
@@ -32,9 +41,19 @@ function ReadMUTF8(S: TStream): string;
 implementation
 
 
-constructor THeaderItem.Create();
+constructor TDexItem.Create;
 begin
-  inherited Create();
+  inherited Create;
+end;
+
+destructor TDexItem.Destroy;
+begin
+  inherited Destroy;
+end;
+
+constructor THeaderItem.Create;
+begin
+  inherited Create;
 end;
 
 destructor THeaderItem.Destroy;
@@ -42,9 +61,9 @@ begin
   inherited Destroy;
 end;
 
-constructor TDexFile.Create();
+constructor TDexFile.Create;
 begin
-  inherited Create();
+  inherited Create;
 end;
 
 destructor TDexFile.Destroy;
