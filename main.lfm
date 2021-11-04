@@ -8,31 +8,23 @@ object MainForm: TMainForm
   ClientWidth = 806
   OnCreate = FormCreate
   LCLVersion = '2.0.12.0'
-  object OpenButton: TButton
-    Left = 680
-    Height = 25
-    Top = 328
-    Width = 75
-    Caption = 'Open'
-    OnClick = OpenButtonClick
-    TabOrder = 0
-  end
   object PageControl: TPageControl
     Left = 0
-    Height = 320
-    Top = 0
+    Height = 365
+    Top = 35
     Width = 806
-    ActivePage = DebugSheet
+    ActivePage = MethodHandlesSheet
     Align = alTop
-    TabIndex = 1
-    TabOrder = 1
-    object ViewSheet: TTabSheet
-      Caption = 'DexView'
-      ClientHeight = 292
+    TabIndex = 8
+    TabOrder = 0
+    TabPosition = tpBottom
+    object HeaderSheet: TTabSheet
+      Caption = 'header'
+      ClientHeight = 337
       ClientWidth = 798
-      object DexListView: TListView
+      object HeaderListView: TListView
         Left = 0
-        Height = 292
+        Height = 337
         Top = 0
         Width = 798
         Align = alClient
@@ -44,13 +36,37 @@ object MainForm: TMainForm
         TabOrder = 0
       end
     end
+    object StringIdsSheet: TTabSheet
+      Caption = 'string_ids'
+    end
+    object TypeIdsSheet: TTabSheet
+      Caption = 'type_ids'
+    end
+    object ProtoIdsSheet: TTabSheet
+      Caption = 'proto_ids'
+    end
+    object FieldIdsSheet: TTabSheet
+      Caption = 'field_ids'
+    end
+    object MethodIdsSheet: TTabSheet
+      Caption = 'method_ids'
+    end
+    object ClassDefsSheet: TTabSheet
+      Caption = 'class_defs'
+    end
+    object CallSiteIdsSheet: TTabSheet
+      Caption = 'call_site_ids'
+    end
+    object MethodHandlesSheet: TTabSheet
+      Caption = 'method_handles'
+    end
     object DebugSheet: TTabSheet
       Caption = 'Debug'
-      ClientHeight = 292
+      ClientHeight = 337
       ClientWidth = 798
       object Memo: TMemo
         Left = 0
-        Height = 292
+        Height = 337
         Top = 0
         Width = 798
         Align = alClient
@@ -63,10 +79,41 @@ object MainForm: TMainForm
       end
     end
   end
+  object StatusBar: TStatusBar
+    Left = 0
+    Height = 23
+    Top = 442
+    Width = 806
+    Panels = <>
+  end
+  object CoolBar: TCoolBar
+    Left = 0
+    Height = 35
+    Top = 0
+    Width = 806
+    Bands = <    
+      item
+        Control = OpenButton
+      end>
+    DockSite = True
+    GrabStyle = gsVerLines
+    object OpenButton: TButton
+      AnchorSideLeft.Control = CoolBar
+      AnchorSideTop.Control = CoolBar
+      Left = 24
+      Height = 25
+      Top = 5
+      Width = 75
+      BorderSpacing.Left = 22
+      BorderSpacing.Top = 3
+      Caption = 'Open'
+      OnClick = OpenButtonClick
+      TabOrder = 0
+    end
+  end
   object DexOpenDialog: TOpenDialog
     DefaultExt = '.dex'
     Filter = '*.dex'
-    Left = 688
-    Top = 392
+    Left = 768
   end
 end

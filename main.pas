@@ -5,7 +5,7 @@ unit Main;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ComCtrls,
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ComCtrls, LResources,
   bufstream, dex;
 
 type
@@ -13,13 +13,23 @@ type
   { TMainForm }
 
   TMainForm = class(TForm)
-    DexListView: TListView;
+    CoolBar: TCoolBar;
+    HeaderListView: TListView;
     OpenButton: TButton;
     Memo: TMemo;
     DexOpenDialog: TOpenDialog;
     PageControl: TPageControl;
-    ViewSheet: TTabSheet;
+    StatusBar: TStatusBar;
+    HeaderSheet: TTabSheet;
     DebugSheet: TTabSheet;
+    StringIdsSheet: TTabSheet;
+    ProtoIdsSheet: TTabSheet;
+    FieldIdsSheet: TTabSheet;
+    MethodIdsSheet: TTabSheet;
+    ClassDefsSheet: TTabSheet;
+    CallSiteIdsSheet: TTabSheet;
+    MethodHandlesSheet: TTabSheet;
+    TypeIdsSheet: TTabSheet;
     procedure OpenButtonClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
@@ -95,6 +105,7 @@ begin
       buf.seek(StringIds[i - 1], TSeekOrigin.soBeginning);
       Memo.Lines.Add('string_data_item[' + IntToStr(i - 1) + ']: ' +
         IntToStr(ReadULEB128(buf)) + ', "' + ReadMUTF8(buf) + '"');
+      Application.ProcessMessages;
     end;
   end;
 end;
