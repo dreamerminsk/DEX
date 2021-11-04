@@ -13,9 +13,9 @@ object MainForm: TMainForm
     Height = 407
     Top = 35
     Width = 806
-    ActivePage = MethodHandlesSheet
+    ActivePage = CallSiteIdsSheet
     Align = alClient
-    TabIndex = 8
+    TabIndex = 7
     TabOrder = 0
     TabPosition = tpBottom
     object HeaderSheet: TTabSheet
