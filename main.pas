@@ -15,6 +15,14 @@ type
   TMainForm = class(TForm)
     CoolBar: TCoolBar;
     HeaderListView: TListView;
+    FieldIdsView: TListView;
+    ClassDefsView: TListView;
+    CallSiteIdsView: TListView;
+    MethodHandlesView: TListView;
+    MethodIdsView: TListView;
+    ProtoIdsView: TListView;
+    TypeIdsView: TListView;
+    StringIdsView: TListView;
     OpenButton: TButton;
     Memo: TMemo;
     DexOpenDialog: TOpenDialog;
