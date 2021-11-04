@@ -60,6 +60,7 @@ procedure TMainForm.OpenButtonClick(Sender: TObject);
 var
   i: int64;
   StringIdsSize, StringIdsOff: int64;
+  TypeIdsSize, TypeIdsOff: int64;
   StringIds: array of int64;
 begin
   if DexOpenDialog.Execute then
@@ -84,8 +85,10 @@ begin
     StringIdsOff := ReadUint(buf);
     Memo.Lines.Add('string_ids_off: ' + IntToStr(StringIdsOff));
 
-    Memo.Lines.Add('type_ids_size: ' + IntToStr(ReadUint(buf)));
-    Memo.Lines.Add('type_ids_off: ' + IntToStr(ReadUint(buf)));
+    TypeIdsSize := ReadUint(buf);
+    Memo.Lines.Add('type_ids_size: ' + IntToStr(TypeIdsSize));
+    TypeIdsOff := ReadUint(buf);
+    Memo.Lines.Add('type_ids_off: ' + IntToStr(TypeIdsOff));
 
     Memo.Lines.Add('proto_ids_size: ' + IntToStr(ReadUint(buf)));
     Memo.Lines.Add('proto_ids_off: ' + IntToStr(ReadUint(buf)));
