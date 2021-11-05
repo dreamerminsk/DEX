@@ -21,6 +21,8 @@ type
     MethodHandlesView: TListView;
     MethodIdsView: TListView;
     ProtoIdsView: TListView;
+    DexTreeSheet: TTabSheet;
+    TreeView1: TTreeView;
     TypeIdsView: TListView;
     StringIdsView: TListView;
     OpenButton: TButton;
