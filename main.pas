@@ -47,9 +47,9 @@ implementation
 procedure TMainForm.OpenButtonClick(Sender: TObject);
 var
   i: int64;
-  StringIdsSize, StringIdsOff, TypeIdsSize, TypeIdsOff, ProtoIdsSize,
-  ProtoIdsOff, FieldIdsSize, FieldIdsOff, MethodIdsSize, MethodIdsOff,
-  ClassDefsSize, ClassDefsOff, DataSize, DataOff: int64;
+  LinkSize, LinkOff, MapOff, StringIdsSize, StringIdsOff, TypeIdsSize,
+  TypeIdsOff, ProtoIdsSize, ProtoIdsOff, FieldIdsSize, FieldIdsOff,
+  MethodIdsSize, MethodIdsOff, ClassDefsSize, ClassDefsOff, DataSize, DataOff: int64;
   StringIds: array of int64;
 begin
   if DexOpenDialog.Execute then
@@ -71,11 +71,13 @@ begin
     DexTreeView.Items.AddChild(DexHeaderNode, 'endian_tag: ' +
       IntToHex(ReadUint(buf), 8));
 
-    DexTreeView.Items.AddChild(DexHeaderNode, 'link_size: ' +
-      IntToStr(ReadUint(buf)));
-    DexTreeView.Items.AddChild(DexHeaderNode, 'link_off: ' + IntToStr(ReadUint(buf)));
+    LinkSize := ReadUint(buf);
+    DexTreeView.Items.AddChild(DexHeaderNode, 'link_size: ' + IntToStr(LinkSize));
+    LinkOff := ReadUint(buf);
+    DexTreeView.Items.AddChild(DexHeaderNode, 'link_off: ' + IntToStr(LinkOff));
 
-    DexTreeView.Items.AddChild(DexHeaderNode, 'map_off: ' + IntToStr(ReadUint(buf)));
+    MapOff := ReadUint(buf);
+    DexTreeView.Items.AddChild(DexHeaderNode, 'map_off: ' + IntToStr(MapOff));
 
     StringIdsSize := ReadUint(buf);
     DexTreeView.Items.AddChild(DexHeaderNode, 'string_ids_size: ' +
@@ -124,16 +126,17 @@ begin
     DataOff := ReadUint(buf);
     DexTreeView.Items.AddChild(DexHeaderNode, 'data_off: ' + IntToStr(DataOff));
 
-    DexTreeView.Items.AddChild(DexRoot, 'string_ids');
-    DexTreeView.Items.AddChild(DexRoot, 'type_ids');
-    DexTreeView.Items.AddChild(DexRoot, 'proto_ids');
-    DexTreeView.Items.AddChild(DexRoot, 'field_ids');
-    DexTreeView.Items.AddChild(DexRoot, 'method_ids');
-    DexTreeView.Items.AddChild(DexRoot, 'class_defs');
-    DexTreeView.Items.AddChild(DexRoot, 'call_site_ids');
-    DexTreeView.Items.AddChild(DexRoot, 'method_handles');
-    DexTreeView.Items.AddChild(DexRoot, 'data');
-    DexTreeView.Items.AddChild(DexRoot, 'link_data');
+    DexTreeView.Items.AddChild(DexRoot, 'string_ids, pos.: ' + IntToStr(StringIdsOff));
+    DexTreeView.Items.AddChild(DexRoot, 'type_ids, pos.: ' + IntToStr(TypeIdsOff));
+    DexTreeView.Items.AddChild(DexRoot, 'proto_ids, pos.: ' + IntToStr(ProtoIdsOff));
+    DexTreeView.Items.AddChild(DexRoot, 'field_ids, pos.: ' + IntToStr(FieldIdsOff));
+    DexTreeView.Items.AddChild(DexRoot, 'method_ids, pos.: ' + IntToStr(MethodIdsOff));
+    DexTreeView.Items.AddChild(DexRoot, 'class_defs, pos.: ' + IntToStr(ClassDefsOff));
+    DexTreeView.Items.AddChild(DexRoot, 'call_site_ids, pos.: ' + IntToStr(LinkOff));
+    DexTreeView.Items.AddChild(DexRoot, 'method_handles, pos.: ' + IntToStr(LinkOff));
+    DexTreeView.Items.AddChild(DexRoot, 'data, pos.: ' + IntToStr(LinkOff));
+    if LinkSize > 0 then
+      DexTreeView.Items.AddChild(DexRoot, 'link_data, pos.: ' + IntToStr(LinkOff));
 
     buf.seek(StringIdsOff, TSeekOrigin.soBeginning);
     SetLength(StringIds, StringIdsSize);
