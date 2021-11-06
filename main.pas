@@ -142,6 +142,7 @@ begin
       DexTreeView.Items.AddChild(DexRoot, 'link_data, pos.: ' + IntToStr(LinkOff));
 
     Map(MapOff);
+    DexTreeView.FullExpand;
 
     buf.seek(StringIdsOff, TSeekOrigin.soBeginning);
     SetLength(StringIds, StringIdsSize);
@@ -161,14 +162,29 @@ end;
 
 procedure TMainForm.Map(MapOff: int64);
 var
-  MapListNode: TTreeNode;
-  Size: int64;
+  MapListNode, ListNode, MapItemNode: TTreeNode;
+  Size, i, MapItemType, MapItemSize, MapItemOffset: int64;
 begin
   MapListNode := DexTreeView.Items.AddChild(DexDataNode, 'map_list, pos.: ' +
     IntToStr(MapOff));
   buf.Seek(MapOff, soBeginning);
   Size := ReadUint(buf);
   DexTreeView.Items.AddChild(MapListNode, 'size: ' + IntToStr(Size));
+  ListNode := DexTreeView.Items.AddChild(MapListNode, 'list, pos.: ' +
+    IntToStr(MapOff + 4));
+  for i := 1 to Size do
+  begin
+    MapItemNode := DexTreeView.Items.AddChild(ListNode, 'map_item, pos.: ' +
+      IntToStr(MapOff + 4 + 12 * (i - 1)));
+    MapItemType := ReadUshort(buf);
+    DexTreeView.Items.AddChild(MapItemNode, 'type: ' + IntToHex(MapItemType, 4));
+    ReadUshort(buf);
+    MapItemSize := ReadUint(buf);
+    DexTreeView.Items.AddChild(MapItemNode, 'size: ' + IntToStr(MapItemSize));
+    MapItemOffset := ReadUint(buf);
+    DexTreeView.Items.AddChild(MapItemNode, 'offset: ' + IntToStr(MapItemOffset));
+    Application.ProcessMessages;
+  end;
 end;
 
 procedure TMainForm.Clear();
