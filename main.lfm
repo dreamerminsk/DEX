@@ -13,143 +13,13 @@ object MainForm: TMainForm
     Height = 407
     Top = 35
     Width = 806
-    ActivePage = DexTreeSheet
+    ActivePage = DebugSheet
     Align = alClient
-    TabIndex = 10
+    TabIndex = 0
     TabOrder = 0
     TabPosition = tpBottom
-    object HeaderSheet: TTabSheet
-      Caption = 'header'
-      ClientHeight = 379
-      ClientWidth = 798
-      object HeaderListView: TListView
-        Left = 0
-        Height = 379
-        Top = 0
-        Width = 798
-        Align = alClient
-        Columns = <>
-        ParentShowHint = False
-        ReadOnly = True
-        RowSelect = True
-        ShowHint = True
-        TabOrder = 0
-      end
-    end
-    object StringIdsSheet: TTabSheet
-      Caption = 'string_ids'
-      ClientHeight = 379
-      ClientWidth = 798
-      object StringIdsView: TListView
-        Left = 0
-        Height = 379
-        Top = 0
-        Width = 798
-        Align = alClient
-        Columns = <>
-        TabOrder = 0
-      end
-    end
-    object TypeIdsSheet: TTabSheet
-      Caption = 'type_ids'
-      ClientHeight = 379
-      ClientWidth = 798
-      object TypeIdsView: TListView
-        Left = 0
-        Height = 379
-        Top = 0
-        Width = 798
-        Align = alClient
-        Columns = <>
-        TabOrder = 0
-      end
-    end
-    object ProtoIdsSheet: TTabSheet
-      Caption = 'proto_ids'
-      ClientHeight = 379
-      ClientWidth = 798
-      object ProtoIdsView: TListView
-        Left = 0
-        Height = 379
-        Top = 0
-        Width = 798
-        Align = alClient
-        Columns = <>
-        TabOrder = 0
-      end
-    end
-    object FieldIdsSheet: TTabSheet
-      Caption = 'field_ids'
-      ClientHeight = 379
-      ClientWidth = 798
-      object FieldIdsView: TListView
-        Left = 0
-        Height = 379
-        Top = 0
-        Width = 798
-        Align = alClient
-        Columns = <>
-        TabOrder = 0
-      end
-    end
-    object MethodIdsSheet: TTabSheet
-      Caption = 'method_ids'
-      ClientHeight = 379
-      ClientWidth = 798
-      object MethodIdsView: TListView
-        Left = 0
-        Height = 379
-        Top = 0
-        Width = 798
-        Align = alClient
-        Columns = <>
-        TabOrder = 0
-      end
-    end
-    object ClassDefsSheet: TTabSheet
-      Caption = 'class_defs'
-      ClientHeight = 379
-      ClientWidth = 798
-      object ClassDefsView: TListView
-        Left = 0
-        Height = 379
-        Top = 0
-        Width = 798
-        Align = alClient
-        Columns = <>
-        TabOrder = 0
-      end
-    end
-    object CallSiteIdsSheet: TTabSheet
-      Caption = 'call_site_ids'
-      ClientHeight = 379
-      ClientWidth = 798
-      object CallSiteIdsView: TListView
-        Left = 0
-        Height = 379
-        Top = 0
-        Width = 798
-        Align = alClient
-        Columns = <>
-        TabOrder = 0
-      end
-    end
-    object MethodHandlesSheet: TTabSheet
-      Caption = 'method_handles'
-      ClientHeight = 379
-      ClientWidth = 798
-      object MethodHandlesView: TListView
-        Left = 0
-        Height = 379
-        Top = 0
-        Width = 798
-        Align = alClient
-        Columns = <>
-        TabOrder = 0
-      end
-    end
     object DebugSheet: TTabSheet
-      Caption = 'Debug'
+      Caption = 'debug'
       ClientHeight = 379
       ClientWidth = 798
       object Memo: TMemo
@@ -171,10 +41,11 @@ object MainForm: TMainForm
       ClientHeight = 379
       ClientWidth = 798
       object TreeView1: TTreeView
-        Left = 134
-        Height = 97
-        Top = 64
-        Width = 121
+        Left = 0
+        Height = 379
+        Top = 0
+        Width = 798
+        Align = alClient
         TabOrder = 0
       end
     end

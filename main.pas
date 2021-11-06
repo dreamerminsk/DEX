@@ -14,32 +14,14 @@ type
 
   TMainForm = class(TForm)
     CoolBar: TCoolBar;
-    HeaderListView: TListView;
-    FieldIdsView: TListView;
-    ClassDefsView: TListView;
-    CallSiteIdsView: TListView;
-    MethodHandlesView: TListView;
-    MethodIdsView: TListView;
-    ProtoIdsView: TListView;
     DexTreeSheet: TTabSheet;
     TreeView1: TTreeView;
-    TypeIdsView: TListView;
-    StringIdsView: TListView;
     OpenButton: TButton;
     Memo: TMemo;
     DexOpenDialog: TOpenDialog;
     PageControl: TPageControl;
     StatusBar: TStatusBar;
-    HeaderSheet: TTabSheet;
     DebugSheet: TTabSheet;
-    StringIdsSheet: TTabSheet;
-    ProtoIdsSheet: TTabSheet;
-    FieldIdsSheet: TTabSheet;
-    MethodIdsSheet: TTabSheet;
-    ClassDefsSheet: TTabSheet;
-    CallSiteIdsSheet: TTabSheet;
-    MethodHandlesSheet: TTabSheet;
-    TypeIdsSheet: TTabSheet;
     procedure OpenButtonClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
