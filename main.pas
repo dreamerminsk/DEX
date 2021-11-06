@@ -28,6 +28,7 @@ type
     procedure FormCreate(Sender: TObject);
   private
     procedure Clear();
+    procedure Map;
   public
 
   end;
@@ -138,6 +139,8 @@ begin
     if LinkSize > 0 then
       DexTreeView.Items.AddChild(DexRoot, 'link_data, pos.: ' + IntToStr(LinkOff));
 
+    Map;
+
     buf.seek(StringIdsOff, TSeekOrigin.soBeginning);
     SetLength(StringIds, StringIdsSize);
     for i := 1 to StringIdsSize do
@@ -154,6 +157,10 @@ begin
   end;
 end;
 
+procedure TMainForm.Map;
+begin
+
+end;
 
 
 procedure TMainForm.Clear();
