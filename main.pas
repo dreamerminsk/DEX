@@ -47,8 +47,9 @@ implementation
 procedure TMainForm.OpenButtonClick(Sender: TObject);
 var
   i: int64;
-  StringIdsSize, StringIdsOff: int64;
-  TypeIdsSize, TypeIdsOff: int64;
+  StringIdsSize, StringIdsOff, TypeIdsSize, TypeIdsOff, ProtoIdsSize,
+  ProtoIdsOff, FieldIdsSize, FieldIdsOff, MethodIdsSize, MethodIdsOff,
+  ClassDefsSize, ClassDefsOff, DataSize, DataOff: int64;
   StringIds: array of int64;
 begin
   if DexOpenDialog.Execute then
@@ -57,44 +58,82 @@ begin
     MainForm.Text := DexOpenDialog.FileName;
     DexRoot := DexTreeView.Items.AddChild(nil, DexOpenDialog.FileName);
     DexHeaderNode := DexTreeView.Items.AddChildFirst(DexRoot, 'header');
+
     buf := TBufferedFileStream.Create(DexOpenDialog.FileName, fmOpenRead);
-    DexTreeView.Items.AddChildFirst(DexHeaderNode, 'magic: ' + ReadMagic(buf));
-    Memo.Lines.Add('magic: ' + ReadMagic(buf));
-    Memo.Lines.Add('checksum: ' + IntToHex(ReadUint(buf), 8));
-    Memo.Lines.Add('signature: ' + ReadBytes(buf, 20));
-    Memo.Lines.Add('file_size: ' + IntToStr(ReadUint(buf)));
-    Memo.Lines.Add('header_size: ' + IntToStr(ReadUint(buf)));
-    Memo.Lines.Add('endian_tag: ' + IntToHex(ReadUint(buf), 8));
+    DexTreeView.Items.AddChild(DexHeaderNode, 'magic: ' + ReadMagic(buf));
+    DexTreeView.Items.AddChild(DexHeaderNode, 'checksum: ' +
+      IntToHex(ReadUint(buf), 8));
+    DexTreeView.Items.AddChild(DexHeaderNode, 'signature: ' + ReadBytes(buf, 20));
+    DexTreeView.Items.AddChild(DexHeaderNode, 'file_size: ' +
+      IntToStr(ReadUint(buf)));
+    DexTreeView.Items.AddChild(DexHeaderNode, 'header_size: ' +
+      IntToStr(ReadUint(buf)));
+    DexTreeView.Items.AddChild(DexHeaderNode, 'endian_tag: ' +
+      IntToHex(ReadUint(buf), 8));
 
-    Memo.Lines.Add('link_size: ' + IntToStr(ReadUint(buf)));
-    Memo.Lines.Add('link_off: ' + IntToStr(ReadUint(buf)));
+    DexTreeView.Items.AddChild(DexHeaderNode, 'link_size: ' +
+      IntToStr(ReadUint(buf)));
+    DexTreeView.Items.AddChild(DexHeaderNode, 'link_off: ' + IntToStr(ReadUint(buf)));
 
-    Memo.Lines.Add('map_off: ' + IntToStr(ReadUint(buf)));
+    DexTreeView.Items.AddChild(DexHeaderNode, 'map_off: ' + IntToStr(ReadUint(buf)));
 
     StringIdsSize := ReadUint(buf);
-    Memo.Lines.Add('string_ids_size: ' + IntToStr(StringIdsSize));
+    DexTreeView.Items.AddChild(DexHeaderNode, 'string_ids_size: ' +
+      IntToStr(StringIdsSize));
     StringIdsOff := ReadUint(buf);
-    Memo.Lines.Add('string_ids_off: ' + IntToStr(StringIdsOff));
+    DexTreeView.Items.AddChild(DexHeaderNode, 'string_ids_off: ' +
+      IntToStr(StringIdsOff));
 
     TypeIdsSize := ReadUint(buf);
-    Memo.Lines.Add('type_ids_size: ' + IntToStr(TypeIdsSize));
+    DexTreeView.Items.AddChild(DexHeaderNode, 'type_ids_size: ' +
+      IntToStr(TypeIdsSize));
     TypeIdsOff := ReadUint(buf);
-    Memo.Lines.Add('type_ids_off: ' + IntToStr(TypeIdsOff));
+    DexTreeView.Items.AddChild(DexHeaderNode, 'type_ids_off: ' +
+      IntToStr(TypeIdsOff));
 
-    Memo.Lines.Add('proto_ids_size: ' + IntToStr(ReadUint(buf)));
-    Memo.Lines.Add('proto_ids_off: ' + IntToStr(ReadUint(buf)));
+    ProtoIdsSize := ReadUint(buf);
+    DexTreeView.Items.AddChild(DexHeaderNode, 'proto_ids_size: ' +
+      IntToStr(ProtoIdsSize));
+    ProtoIdsOff := ReadUint(buf);
+    DexTreeView.Items.AddChild(DexHeaderNode, 'proto_ids_off: ' +
+      IntToStr(ProtoIdsOff));
 
-    Memo.Lines.Add('field_ids_size: ' + IntToStr(ReadUint(buf)));
-    Memo.Lines.Add('field_ids_off: ' + IntToStr(ReadUint(buf)));
+    FieldIdsSize := ReadUint(buf);
+    DexTreeView.Items.AddChild(DexHeaderNode, 'field_ids_size: ' +
+      IntToStr(FieldIdsSize));
+    FieldIdsOff := ReadUint(buf);
+    DexTreeView.Items.AddChild(DexHeaderNode, 'field_ids_off: ' +
+      IntToStr(FieldIdsOff));
 
-    Memo.Lines.Add('method_ids_size: ' + IntToStr(ReadUint(buf)));
-    Memo.Lines.Add('method_ids_off: ' + IntToStr(ReadUint(buf)));
+    MethodIdsSize := ReadUint(buf);
+    DexTreeView.Items.AddChild(DexHeaderNode, 'method_ids_size: ' +
+      IntToStr(methodIdsSize));
+    MethodIdsOff := ReadUint(buf);
+    DexTreeView.Items.AddChild(DexHeaderNode, 'method_ids_off: ' +
+      IntToStr(methodIdsOff));
 
-    Memo.Lines.Add('class_defs_size: ' + IntToStr(ReadUint(buf)));
-    Memo.Lines.Add('class_defs_off: ' + IntToStr(ReadUint(buf)));
+    ClassDefsSize := ReadUint(buf);
+    DexTreeView.Items.AddChild(DexHeaderNode, 'class_defs_size: ' +
+      IntToStr(ClassDefsSize));
+    ClassDefsOff := ReadUint(buf);
+    DexTreeView.Items.AddChild(DexHeaderNode, 'class_defs_off: ' +
+      IntToStr(ClassDefsOff));
 
-    Memo.Lines.Add('data_size: ' + IntToStr(ReadUint(buf)));
-    Memo.Lines.Add('data_off: ' + IntToStr(ReadUint(buf)));
+    DataSize := ReadUint(buf);
+    DexTreeView.Items.AddChild(DexHeaderNode, 'data_size: ' + IntToStr(DataSize));
+    DataOff := ReadUint(buf);
+    DexTreeView.Items.AddChild(DexHeaderNode, 'data_off: ' + IntToStr(DataOff));
+
+    DexTreeView.Items.AddChild(DexRoot, 'string_ids');
+    DexTreeView.Items.AddChild(DexRoot, 'type_ids');
+    DexTreeView.Items.AddChild(DexRoot, 'proto_ids');
+    DexTreeView.Items.AddChild(DexRoot, 'field_ids');
+    DexTreeView.Items.AddChild(DexRoot, 'method_ids');
+    DexTreeView.Items.AddChild(DexRoot, 'class_defs');
+    DexTreeView.Items.AddChild(DexRoot, 'call_site_ids');
+    DexTreeView.Items.AddChild(DexRoot, 'method_handles');
+    DexTreeView.Items.AddChild(DexRoot, 'data');
+    DexTreeView.Items.AddChild(DexRoot, 'link_data');
 
     buf.seek(StringIdsOff, TSeekOrigin.soBeginning);
     SetLength(StringIds, StringIdsSize);
