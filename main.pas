@@ -28,7 +28,7 @@ type
     procedure FormCreate(Sender: TObject);
   private
     procedure Clear();
-    procedure Map;
+    procedure Map(DataOff: int64);
   public
 
   end;
@@ -37,6 +37,7 @@ var
   MainForm: TMainForm;
   DexRoot: TTreeNode;
   DexHeaderNode: TTreeNode;
+  DexDataNode: TTreeNode;
   buf: TBufferedFileStream;
 
 implementation
@@ -135,11 +136,11 @@ begin
     DexTreeView.Items.AddChild(DexRoot, 'class_defs, pos.: ' + IntToStr(ClassDefsOff));
     DexTreeView.Items.AddChild(DexRoot, 'call_site_ids, pos.: ' + IntToStr(LinkOff));
     DexTreeView.Items.AddChild(DexRoot, 'method_handles, pos.: ' + IntToStr(LinkOff));
-    DexTreeView.Items.AddChild(DexRoot, 'data, pos.: ' + IntToStr(LinkOff));
+    DexDataNode := DexTreeView.Items.AddChild(DexRoot, 'data, pos.: ' + IntToStr(DataOff));
     if LinkSize > 0 then
       DexTreeView.Items.AddChild(DexRoot, 'link_data, pos.: ' + IntToStr(LinkOff));
 
-    Map;
+    Map(DataOff);
 
     buf.seek(StringIdsOff, TSeekOrigin.soBeginning);
     SetLength(StringIds, StringIdsSize);
@@ -157,11 +158,10 @@ begin
   end;
 end;
 
-procedure TMainForm.Map;
+procedure TMainForm.Map(DataOff: int64);
 begin
-
+  DexTreeView.Items.AddChild(DexDataNode, 'map_list, pos.: ' + IntToStr(DataOff));
 end;
-
 
 procedure TMainForm.Clear();
 begin
