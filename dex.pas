@@ -33,9 +33,10 @@ type
 
 
 function ReadMagic(S: TStream): string;
-function ReadUint(S: TStream): integer;
+function ReadUint(S: TStream): int64;
+function ReadUshort(S: TStream): int64;
 function ReadBytes(S: TStream; Size: integer): string;
-function ReadULEB128(S: TStream): UInt64;
+function ReadULEB128(S: TStream): qword;
 function ReadMUTF8(S: TStream): string;
 
 implementation
@@ -89,10 +90,15 @@ begin
   end;
 end;
 
-function ReadUint(S: TStream): integer;
+function ReadUint(S: TStream): int64;
 begin
   Result := S.ReadByte + 256 * S.ReadByte + 256 * 256 * S.ReadByte +
     256 * 256 * 256 * S.ReadByte;
+end;
+
+function ReadUshort(S: TStream): int64;
+begin
+  Result := S.ReadByte + 256 * S.ReadByte;
 end;
 
 function ReadBytes(S: TStream; Size: integer): string;
@@ -111,7 +117,7 @@ begin
   end;
 end;
 
-function ReadULEB128(S: TStream): UInt64;
+function ReadULEB128(S: TStream): qword;
 var
   I, lShift: integer;
   lByte: byte;

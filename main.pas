@@ -28,7 +28,7 @@ type
     procedure FormCreate(Sender: TObject);
   private
     procedure Clear();
-    procedure Map(DataOff: int64);
+    procedure Map(MapOff: int64);
   public
 
   end;
@@ -136,11 +136,12 @@ begin
     DexTreeView.Items.AddChild(DexRoot, 'class_defs, pos.: ' + IntToStr(ClassDefsOff));
     DexTreeView.Items.AddChild(DexRoot, 'call_site_ids, pos.: ' + IntToStr(LinkOff));
     DexTreeView.Items.AddChild(DexRoot, 'method_handles, pos.: ' + IntToStr(LinkOff));
-    DexDataNode := DexTreeView.Items.AddChild(DexRoot, 'data, pos.: ' + IntToStr(DataOff));
+    DexDataNode := DexTreeView.Items.AddChild(DexRoot, 'data, pos.: ' +
+      IntToStr(DataOff));
     if LinkSize > 0 then
       DexTreeView.Items.AddChild(DexRoot, 'link_data, pos.: ' + IntToStr(LinkOff));
 
-    Map(DataOff);
+    Map(MapOff);
 
     buf.seek(StringIdsOff, TSeekOrigin.soBeginning);
     SetLength(StringIds, StringIdsSize);
@@ -158,9 +159,16 @@ begin
   end;
 end;
 
-procedure TMainForm.Map(DataOff: int64);
+procedure TMainForm.Map(MapOff: int64);
+var
+  MapListNode: TTreeNode;
+  Size: int64;
 begin
-  DexTreeView.Items.AddChild(DexDataNode, 'map_list, pos.: ' + IntToStr(DataOff));
+  MapListNode := DexTreeView.Items.AddChild(DexDataNode, 'map_list, pos.: ' +
+    IntToStr(MapOff));
+  buf.Seek(MapOff, soBeginning);
+  Size := ReadUint(buf);
+  DexTreeView.Items.AddChild(MapListNode, 'size: ' + IntToStr(Size));
 end;
 
 procedure TMainForm.Clear();
