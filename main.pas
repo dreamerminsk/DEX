@@ -15,7 +15,9 @@ type
   TMainForm = class(TForm)
     CoolBar: TCoolBar;
     DexTreeSheet: TTabSheet;
-    TreeView1: TTreeView;
+    DexViewSheet: TTabSheet;
+    DexListView: TListView;
+    DexTreeView: TTreeView;
     OpenButton: TButton;
     Memo: TMemo;
     DexOpenDialog: TOpenDialog;
@@ -32,6 +34,8 @@ type
 
 var
   MainForm: TMainForm;
+  DexRoot: TTreeNode;
+  DexHeaderNode: TTreeNode;
   buf: TBufferedFileStream;
 
 implementation
@@ -51,7 +55,10 @@ begin
   begin
     Clear;
     MainForm.Text := DexOpenDialog.FileName;
+    DexRoot := DexTreeView.Items.AddChild(nil, DexOpenDialog.FileName);
+    DexHeaderNode := DexTreeView.Items.AddChildFirst(DexRoot, 'header');
     buf := TBufferedFileStream.Create(DexOpenDialog.FileName, fmOpenRead);
+    DexTreeView.Items.AddChildFirst(DexHeaderNode, 'magic: ' + ReadMagic(buf));
     Memo.Lines.Add('magic: ' + ReadMagic(buf));
     Memo.Lines.Add('checksum: ' + IntToHex(ReadUint(buf), 8));
     Memo.Lines.Add('signature: ' + ReadBytes(buf, 20));
@@ -110,6 +117,8 @@ end;
 procedure TMainForm.Clear();
 begin
   FreeAndNil(buf);
+  DexTreeView.Items.Clear;
+  DexListView.Items.Clear;
   Memo.Clear;
 end;
 

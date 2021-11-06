@@ -13,9 +13,9 @@ object MainForm: TMainForm
     Height = 407
     Top = 35
     Width = 806
-    ActivePage = DebugSheet
+    ActivePage = DexTreeSheet
     Align = alClient
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     TabPosition = tpBottom
     object DebugSheet: TTabSheet
@@ -40,12 +40,33 @@ object MainForm: TMainForm
       Caption = 'dex_tree'
       ClientHeight = 379
       ClientWidth = 798
-      object TreeView1: TTreeView
+      object DexTreeView: TTreeView
         Left = 0
         Height = 379
         Top = 0
         Width = 798
         Align = alClient
+        ParentShowHint = False
+        ReadOnly = True
+        ScrollBars = ssAutoBoth
+        ShowHint = True
+        ShowLines = False
+        ShowRoot = False
+        TabOrder = 0
+        Options = [tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoReadOnly, tvoShowButtons, tvoToolTips, tvoThemedDraw]
+      end
+    end
+    object DexViewSheet: TTabSheet
+      Caption = 'dex_view'
+      ClientHeight = 379
+      ClientWidth = 798
+      object DexListView: TListView
+        Left = 0
+        Height = 379
+        Top = 0
+        Width = 798
+        Align = alClient
+        Columns = <>
         TabOrder = 0
       end
     end
