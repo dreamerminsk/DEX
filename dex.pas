@@ -31,6 +31,11 @@ const
   TYPE_HIDDENAPI_CLASS_DATA_ITEM = $F000;
 
 type
+  DexHeader = packed record
+    magic: array[0..7] of byte;
+  end;
+
+type
   TDexItem = class(TObject)
   private
     FParent: TDexItem;
