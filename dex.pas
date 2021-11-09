@@ -33,6 +33,28 @@ const
 type
   DexHeader = packed record
     magic: array[0..7] of byte;
+    checksum: longword;
+    signature: array[0..19] of byte;
+    file_size: longword;
+    header_size: longword;
+    endian_tag: longword;
+    link_size: longword;
+    link_off: longword;
+    map_off: longword;
+    string_ids_size: longword;
+    string_ids_off: longword;
+    type_ids_size: longword;
+    type_ids_off: longword;
+    proto_ids_size: longword;
+    proto_ids_off: longword;
+    field_ids_size: longword;
+    field_ids_off: longword;
+    method_ids_size: longword;
+    method_ids_off: longword;
+    class_defs_size: longword;
+    class_defs_off: longword;
+    data_size: longword;
+    data_off: longword;
   end;
 
 type
