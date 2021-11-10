@@ -53,7 +53,7 @@ var
   TypeIdsOff, ProtoIdsSize, ProtoIdsOff, FieldIdsSize, FieldIdsOff,
   MethodIdsSize, MethodIdsOff, ClassDefsSize, ClassDefsOff, DataSize, DataOff: int64;
   StringIds: array of int64;
-  H: TDexHeaderRec;
+  Header: TDexHeaderRec;
 begin
   if DexOpenDialog.Execute then
   begin
@@ -64,7 +64,7 @@ begin
 
     buf := TBufferedFileStream.Create(DexOpenDialog.FileName, fmOpenRead);
 
-    ReadBuffer(buf, H, SizeOf(TDexHeaderRec));
+    ReadBuffer(buf, Header, SizeOf(TDexHeaderRec));
 
     buf.Position := 0;
     DexTreeView.Items.AddChild(DexHeaderNode, 'magic: ' + ReadMagic(buf));
