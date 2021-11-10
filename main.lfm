@@ -1,7 +1,7 @@
 object MainForm: TMainForm
-  Left = 290
+  Left = 284
   Height = 465
-  Top = 167
+  Top = 203
   Width = 806
   Caption = 'DexViewer'
   ClientHeight = 465

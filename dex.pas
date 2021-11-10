@@ -31,7 +31,7 @@ const
   TYPE_HIDDENAPI_CLASS_DATA_ITEM = $F000;
 
 type
-  DexHeader = packed record
+  TDexHeaderRec = packed record
     magic: array[0..7] of byte;
     checksum: longword;
     signature: array[0..19] of byte;
@@ -81,7 +81,7 @@ type
     destructor Destroy; override;
   end;
 
-
+function ReadBuffer(S: TStream; var Buffer; Count: longint): int64;
 function ReadMagic(S: TStream): string;
 function ReadUint(S: TStream): int64;
 function ReadUshort(S: TStream): int64;
@@ -120,6 +120,11 @@ end;
 destructor TDexFile.Destroy;
 begin
   inherited Destroy;
+end;
+
+function ReadBuffer(S: TStream; var Buffer; Count: longint): int64;
+begin
+  Result := S.Read(Buffer, Count);
 end;
 
 function ReadMagic(S: TStream): string;

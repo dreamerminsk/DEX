@@ -5,8 +5,8 @@ unit Main;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ComCtrls, LResources,
-  bufstream, dex;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ComCtrls,
+  LResources, bufstream, dex;
 
 type
 
@@ -53,6 +53,7 @@ var
   TypeIdsOff, ProtoIdsSize, ProtoIdsOff, FieldIdsSize, FieldIdsOff,
   MethodIdsSize, MethodIdsOff, ClassDefsSize, ClassDefsOff, DataSize, DataOff: int64;
   StringIds: array of int64;
+  H: TDexHeaderRec;
 begin
   if DexOpenDialog.Execute then
   begin
@@ -62,6 +63,10 @@ begin
     DexHeaderNode := DexTreeView.Items.AddChildFirst(DexRoot, 'header');
 
     buf := TBufferedFileStream.Create(DexOpenDialog.FileName, fmOpenRead);
+
+    ReadBuffer(buf, H, SizeOf(TDexHeaderRec));
+
+    buf.Position := 0;
     DexTreeView.Items.AddChild(DexHeaderNode, 'magic: ' + ReadMagic(buf));
     DexTreeView.Items.AddChild(DexHeaderNode, 'checksum: ' +
       IntToHex(ReadUint(buf), 8));
